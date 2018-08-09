@@ -17,6 +17,7 @@ package de.olivergierke.moduliths.test;
 
 import de.olivergierke.moduliths.model.Module;
 import de.olivergierke.moduliths.model.Modules;
+import de.olivergierke.moduliths.test.assertj.AssertableApplicationListener;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,6 +72,10 @@ class ModuleContextCustomizerFactory implements ContextCustomizerFactory {
 			logModules(execution);
 
 			context.getBeanFactory().registerSingleton(BEAN_NAME, execution);
+
+			AssertableApplicationListener listener = new AssertableApplicationListener();
+			context.getBeanFactory().registerSingleton(listener.getClass().getName(), listener);
+			context.addApplicationListener(listener);
 		}
 
 		private static void logModules(ModuleTestExecution execution) {
