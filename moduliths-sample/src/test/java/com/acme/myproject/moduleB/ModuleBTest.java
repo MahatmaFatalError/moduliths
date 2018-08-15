@@ -17,8 +17,9 @@ package com.acme.myproject.moduleB;
 
 import static org.assertj.core.api.Assertions.*;
 
-import de.olivergierke.moduliths.test.TestUtils;
 import de.olivergierke.moduliths.test.ModuleTest.BootstrapMode;
+import de.olivergierke.moduliths.test.TestUtils;
+import de.olivergierke.moduliths.test.assertj.AssertableApplicationListener;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,6 +62,7 @@ public class ModuleBTest {
 
 		@Autowired ApplicationContext context;
 		@MockBean ServiceComponentA serviceComponentA;
+		@Autowired AssertableApplicationListener listener;
 
 		@Test
 		public void bootstrapsModuleB() {

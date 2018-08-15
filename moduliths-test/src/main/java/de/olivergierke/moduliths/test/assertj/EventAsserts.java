@@ -13,23 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acme.myproject.moduleA;
+package de.olivergierke.moduliths.test.assertj;
 
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Component;
+import java.util.function.Consumer;
 
 /**
- * @author Oliver Drotbohm
+ * @author Oliver Gierke
  */
-@Component
-@RequiredArgsConstructor
-public class ServiceComponentA {
+public interface EventAsserts {
 
-	private final ApplicationEventPublisher publisher;
-
-	public void fireEvent() {
-		publisher.publishEvent(new SomeEventA("Message"));
-	}
+	<T> EventAsserts hasEventsFired(Class<T> eventType, Consumer<T> event);
 }

@@ -17,6 +17,8 @@ package com.acme.myproject.moduleA;
 
 import static org.assertj.core.api.Assertions.*;
 
+import de.olivergierke.moduliths.test.assertj.AssertableApplicationListener;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -28,13 +30,14 @@ import com.acme.myproject.NonVerifyingModuleTest;
 import com.acme.myproject.moduleB.ServiceComponentB;
 
 /**
- * @author Oliver Gierke
+ * @author Oliver Drotbohm
  */
 @NonVerifyingModuleTest
 @RunWith(SpringRunner.class)
 public class ModuleATest {
 
 	@Autowired ApplicationContext context;
+	@Autowired AssertableApplicationListener listener;
 
 	@Test
 	public void bootstrapsModuleAOnly() {
@@ -43,5 +46,15 @@ public class ModuleATest {
 
 		assertThatExceptionOfType(NoSuchBeanDefinitionException.class)
 				.isThrownBy(() -> context.getBean(ServiceComponentB.class));
+	}
+
+	@Test // #17
+	public void assertEventsFired() {
+
+		context.getBean(ServiceComponentA.class).fireEvent();
+
+		assertThat(listener).hasEventsFired(SomeEventA.class, event -> {
+			assertThat(event.getMessage()).isEqualTo("Message");
+		});
 	}
 }

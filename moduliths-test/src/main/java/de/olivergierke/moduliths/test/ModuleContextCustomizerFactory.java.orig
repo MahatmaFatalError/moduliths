@@ -74,14 +74,17 @@ class ModuleContextCustomizerFactory implements ContextCustomizerFactory {
 
 			ModuleTestExecution testExecution = execution.get();
 
+<<<<<<< HEAD
 			logModules(testExecution);
 
 			context.getBeanFactory().registerSingleton(BEAN_NAME, testExecution);
+=======
+			context.getBeanFactory().registerSingleton(BEAN_NAME, execution);
 
 			AssertableApplicationListener listener = new AssertableApplicationListener();
 			context.getBeanFactory().registerSingleton(listener.getClass().getName(), listener);
-
 			context.addApplicationListener(listener);
+>>>>>>> #17 - Hacking.
 		}
 
 		private static void logModules(ModuleTestExecution execution) {

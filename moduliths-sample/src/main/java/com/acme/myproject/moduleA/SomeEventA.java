@@ -15,10 +15,12 @@
  */
 package com.acme.myproject.moduleA;
 
-/**
- *
- * @author Oliver Gierke
- */
-public class SomeEventA {
+import lombok.Value;
 
+/**
+ * @author Oliver Drotbohm
+ */
+@Value
+public class SomeEventA {
+	String message;
 }
